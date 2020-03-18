@@ -1,0 +1,28 @@
+﻿@page "/counter"
+@using BlazorOrangePi.Data
+@inject BlinkService blService
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">@(yakToggle?"Söndür":"Yak")</button>
+
+@code {
+    private int currentCount = 0;
+    private bool yakToggle = false;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+        yakToggle = !yakToggle;
+        blService.LedIslem(yakToggle);
+
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        yakToggle = blService.ledDurum;
+    }
+}
