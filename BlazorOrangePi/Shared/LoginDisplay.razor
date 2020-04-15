@@ -1,0 +1,14 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <i class="oi oi-key"></i> <a href="Identity/Account/Manage">@context.User.Identity.Name</a>
+        <form method="post" action="Identity/Account/LogOut">
+            <button type="submit" class="btn btn-danger ml-1">
+                Çıkış Yap
+            </button>
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <a href="Identity/Account/Register">Kayıt</a>
+        <a href="Identity/Account/Login">Giriş</a>
+    </NotAuthorized>
+</AuthorizeView>

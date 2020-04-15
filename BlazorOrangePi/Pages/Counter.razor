@@ -2,27 +2,47 @@
 @using BlazorOrangePi.Data
 @inject BlinkService blService
 
-<h1>Counter</h1>
+@if(blService.SonHata!=null)
+{
+    <div class="container">
+        <div class="row alert alert-danger">
+            <h5 class="mr-1">Hata!</h5>
+            @blService.SonHata.ToString();
+        </div>
+    </div>
+}
 
-<p>Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">@(yakToggle?"Söndür":"Yak")</button>
+<p>İşlem Sayısı: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">@(ledYandi ? "Söndür" : "Yak")</button>
+
 
 @code {
     private int currentCount = 0;
-    private bool yakToggle = false;
+    private bool ledYandi = false;
+
 
     private void IncrementCount()
     {
         currentCount++;
-        yakToggle = !yakToggle;
-        blService.LedIslem(yakToggle);
+        blService.LedIslem();
 
     }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        yakToggle = blService.ledDurum;
+        this.blService.OnPinDurumuDegisti += this.PinDegisti;
+        ledYandi = blService.LedDurum;
+        blService.SonHata = null;
+    }
+
+    private void PinDegisti(object sender, BlinkServiceChangedEventArgs e)
+    {
+        ledYandi = e.Durum;
+        InvokeAsync(()=> {
+            this.StateHasChanged();
+        });
     }
 }

@@ -1,0 +1,20 @@
+﻿@page "/GpioPage"
+@attribute [Authorize]
+
+<h3>GpioSayfasi</h3>
+
+<AuthorizeView>
+    <Authorized>
+        <h1>Blazor Gpio sayfası</h1>
+    </Authorized>
+    <NotAuthorized>
+        <span>Önce Giriş Yapın</span><br />
+        <a href="Identity/Account/Register" class="btn btn-secondary" >Kayıt</a>
+        <a href="Identity/Account/Login" class="btn btn-secondary">Giriş</a>
+    </NotAuthorized>
+
+</AuthorizeView>
+
+@code {
+
+}

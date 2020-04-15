@@ -1,5 +1,5 @@
 ﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">BlazorOrangePi</a>
+    <a class="navbar-brand" href=""><b style="font-size:25px">Robosai</b> Otomasyon</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,18 +9,22 @@
     <ul class="nav flex-column">
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="oi oi-home" aria-hidden="true"></span> DashBoard
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+                <span class="oi oi-terminal" aria-hidden="true"></span> Led Test
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            <NavLink class="nav-link" href="GpioPage">
+                <span class="oi oi-check" aria-hidden="true"></span> Gpio Sayfası
             </NavLink>
+        </li>
+        <li>
+            <partial action="/Areas/Identity/Shared/_loginPartial.cshtml"></partial>
+
         </li>
     </ul>
 </div>

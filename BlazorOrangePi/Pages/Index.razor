@@ -1,5 +1,49 @@
 ﻿@page "/"
+@using BlazorOrangePi.Data
+@using System.Timers
+@inject BlinkService blService
 
-<h1>Hello, world!</h1>
+@if (blService.SonHata != null)
+{
+    <div class="container">
+        <div class="row alert alert-danger">
+            <h5 class="mr-1">Hata!</h5>
+            @blService.SonHata.ToString();
+        </div>
+    </div>
+}
 
-Welcome to your new app.
+<canvas data-type="radial-gauge"
+        data-width="200"
+        data-height="200"
+        data-border-radius="20"
+        data-units="°C"
+        data-value-dec="1"
+        data-value-int="1"
+        data-value="@olculenSicaklik.ToString("0.0").Replace(",", ".")"></canvas>
+
+@code{
+    private double olculenSicaklik = 0;
+
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        this.blService.OnSicaklikDegisti += this.OnSicaklikDegisti;
+        olculenSicaklik = blService.Sicaklik;
+
+
+    }
+
+    private void OnSicaklikDegisti(object sender, SicaklikDegistiEventArgs e)
+    {
+        olculenSicaklik = e.SonSicaklik;
+        InvokeAsync(() =>
+        {
+            this.StateHasChanged();
+        });
+    }
+
+}
